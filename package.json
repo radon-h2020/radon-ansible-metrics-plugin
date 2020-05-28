@@ -6,7 +6,7 @@
 	"publisher": "sdallapalma",
 	"url": "https://sdallapalma@dev.azure.com/sdallapalma/radon-defect-prediction-plugin/_git/radon-defect-prediction-plugin",
 	"engines": {
-		"vscode": "^1.44.0"
+		"vscode": "^1.45.0"
 	},
 	"repository": {
 		"type": "git",
