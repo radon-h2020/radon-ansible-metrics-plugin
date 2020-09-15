@@ -6,12 +6,15 @@ const cp = require('child_process')
 export function activate(context: vscode.ExtensionContext) {
 
 	let disposable = vscode.commands.registerCommand('ansiblemetrics.run', (uri: vscode.Uri) => {
+
 		const editor = vscode.window.activeTextEditor
-		
+
 		if(!editor || editor.document.languageId !== 'yaml')
 			return
 		
-		let filePath = uri ? uri.path : editor.document.uri.path
+		let filePath = uri ? path.normalize(uri.path) : path.normalize(editor.document.uri.path)
+		filePath = filePath.replace('\\c:', 'C:')
+
 		const fileName = path.basename(filePath);
 
 		// Create and show panel

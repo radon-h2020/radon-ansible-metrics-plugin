@@ -8,7 +8,8 @@ function activate(context) {
         const editor = vscode.window.activeTextEditor;
         if (!editor || editor.document.languageId !== 'yaml')
             return;
-        let filePath = uri ? uri.path : editor.document.uri.path;
+        let filePath = uri ? path.normalize(uri.path) : path.normalize(editor.document.uri.path);
+        filePath = filePath.replace('\\c:', 'C:');
         const fileName = path.basename(filePath);
         // Create and show panel
         const panel = vscode.window.createWebviewPanel('ansible-metrics', 'Ansible metrics', vscode.ViewColumn.Two, {
