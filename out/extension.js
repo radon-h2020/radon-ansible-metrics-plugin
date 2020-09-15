@@ -19,8 +19,9 @@ function activate(context) {
         cp.exec(`ansible-metrics ${filePath} -o`, (err, stdout, stderr) => {
             if (err) {
                 console.log('error: ' + err);
-                panel.webview.html = getWebviewError(err);
-            }else if (stdout) {
+                panel.webview.html = getWebviewError(err.toString());
+            }
+            else if (stdout) {
                 // And set its HTML content
                 let json_data = JSON.parse(stdout);
                 json_data['filepath'] = fileName;
@@ -31,7 +32,6 @@ function activate(context) {
     context.subscriptions.push(disposable);
 }
 exports.activate = activate;
-
 function getWebviewContent(data) {
     let tbody = '';
     for (let [key, value] of Object.entries(data)) {
@@ -92,14 +92,11 @@ function getWebviewContent(data) {
 	</body>
 	</html>`;
 }
-
 function generateHtmlTableRow(name, value) {
     // generate a HTML table row as follows: <tr><td>name</td><td>value</td></tr>
     return `<tr><td>${name}</td><td>${value}</td></tr>`;
 }
-
 function getWebviewError(err) {
-
     return `
 	<!doctype html>
 	<html lang="en">
@@ -141,3 +138,4 @@ function getWebviewError(err) {
 	</body>
 	</html>`;
 }
+//# sourceMappingURL=extension.js.map

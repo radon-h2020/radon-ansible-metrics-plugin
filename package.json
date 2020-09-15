@@ -2,9 +2,9 @@
 	"name": "ansiblemetrics",
 	"displayName": "AnsibleMetrics",
 	"description": "An extension of AnsibleMetrics to quantify the characteristics of an Ansible blueprints.",
-	"version": "0.0.1",
+	"version": "0.0.2",
 	"publisher": "sdallapalma",
-	"url": "https://sdallapalma@dev.azure.com/sdallapalma/radon-defect-prediction-plugin/_git/radon-defect-prediction-plugin",
+	"url": "https://sdallapalma@dev.azure.com/sdallapalma/radon-ansible-metrics-plugin/_git/radon-ansible-metrics-plugin",
 	"engines": {
 		"vscode": "^1.45.0"
 	},
@@ -28,11 +28,11 @@
 		],
 		"menus": {
 			"editor/title": [
-			  {
-				"when": "resourceLangId == yaml",
-				"command": "ansiblemetrics.run",
-				"group": "navigation"
-			  }
+				{
+					"when": "resourceLangId == yaml",
+					"command": "ansiblemetrics.run",
+					"group": "navigation"
+				}
 			]
 		}
 	},
