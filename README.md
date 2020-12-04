@@ -4,6 +4,9 @@
 ![Installs](https://img.shields.io/visual-studio-marketplace/i/radon-h2020.ansiblemetrics)
 ![Downloads](https://img.shields.io/visual-studio-marketplace/d/radon-h2020.ansiblemetrics)
 
+<div style="text-align:center"><img src="media/logo128x128.png"/></div>
+
+
 # AnsibleMetrics
 
 This is the VSC extension of the Ansible metric tool (available on [Github](https://github.com/radon-h2020/radon-ansible-metrics/)).
@@ -21,7 +24,7 @@ The extension works only for Ansible playbooks and tasks files.
 
 ## Requirements
 
-The extension requires the python module ```ansiblemetrics>=0.3.3```.
+The extension requires the python module ```ansiblemetrics>=0.3.8```.
 You can install [the latest](https://pypi.org/project/ansiblemetrics/) version with 
 
 ```pip install ansiblemetrics```
