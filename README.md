@@ -1,13 +1,15 @@
-![Version](https://img.shields.io/visual-studio-marketplace/v/radon-h2020.ansiblemetrics)
-![Updated](https://img.shields.io/visual-studio-marketplace/last-updated/radon-h2020.ansiblemetrics)
-![Released](https://img.shields.io/visual-studio-marketplace/release-date/radon-h2020.ansiblemetrics)
-![Installs](https://img.shields.io/visual-studio-marketplace/i/radon-h2020.ansiblemetrics)
-![Downloads](https://img.shields.io/visual-studio-marketplace/d/radon-h2020.ansiblemetrics)
-
-<div style="text-align:center"><img src="media/logo128x128.png"/></div>
+<p align="center" width="100%">
+    <img src="media/logo128x128.png"> 
+</p>
 
 
-# AnsibleMetrics
+<h2 align="center">The Visual Studio Code extension for measuring the characteristics of Ansible source code</h2>
+<p align="center">
+<a><img alt="Version" src="https://img.shields.io/visual-studio-marketplace/v/radon-h2020.ansiblemetrics"></a>
+<a><img alt="Install" src="https://img.shields.io/visual-studio-marketplace/i/radon-h2020.ansiblemetrics"></a>
+<a><img alt="Downloads" src="https://img.shields.io/visual-studio-marketplace/d/radon-h2020.ansiblemetrics"></a>
+</p>
+
 
 This is the VSC extension of the Ansible metric tool (available on [Github](https://github.com/radon-h2020/radon-ansible-metrics/)).
 
