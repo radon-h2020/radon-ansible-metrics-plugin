@@ -7,7 +7,6 @@
 <p align="center">
 <a><img alt="Version" src="https://img.shields.io/visual-studio-marketplace/v/radon-h2020.ansiblemetrics"></a>
 <a><img alt="Install" src="https://img.shields.io/visual-studio-marketplace/i/radon-h2020.ansiblemetrics"></a>
-<a><img alt="Downloads" src="https://img.shields.io/visual-studio-marketplace/d/radon-h2020.ansiblemetrics"></a>
 </p>
 
 
