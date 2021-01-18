@@ -16,7 +16,7 @@ This is the VSC extension of the Ansible metric tool (available on [Github](http
 
 **AnsibleMetrics** allows the user to have a wider overview of its infrastructure code by extracting metrics from it and by showing them in a very simple fashion.
 
-The extension works only for Ansible playbooks and tasks files.
+The extension works for Ansible playbooks and tasks files.
 
 
 ## How to use
@@ -25,15 +25,7 @@ The extension works only for Ansible playbooks and tasks files.
 
 ## Requirements
 
-The extension requires the python module ```ansiblemetrics>=0.3.8```.
+The extension requires the python module ```ansiblemetrics>=0.3.10```.
 You can install [the latest](https://pypi.org/project/ansiblemetrics/) version with 
 
 ```pip install ansiblemetrics```
-
-
-## Release Notes
-
-### 0.0.1
-* Initial release
-
-See the [CHANGELOG](CHANGELOG.md) for more information about the releases.

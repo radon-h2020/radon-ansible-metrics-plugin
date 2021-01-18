@@ -1,12 +1,13 @@
 import * as vscode from 'vscode';
 import * as path from 'path';
-
+	
+const thresholds:any = {avg_task_size: {q1: 4.0, median: 6.0, q3: 10.0, outlier: 19.0}, lines_blank: {q1: 1.0, median: 2.0, q3: 6.0, outlier: 13.5}, lines_code: {q1: 7.0, median: 16.0, q3: 36.0, outlier: 79.5}, lines_comment: {q1: 0.0, median: 0.0, q3: 2.0, outlier: 5.0}, num_conditions: {q1: 0.0, median: 0.0, q3: 2.0, outlier: 5.0}, num_decisions: {q1: 0.0, median: 0.0, q3: 1.0, outlier: 2.5}, num_distinct_modules: {q1: 0.0, median: 1.0, q3: 4.0, outlier: 10.0}, num_external_modules: {q1: 0.0, median: 0.0, q3: 1.0, outlier: 2.5}, num_filters: {q1: 0.0, median: 0.0, q3: 1.0, outlier: 2.5}, num_keys: {q1: 6.0, median: 13.0, q3: 30.0, outlier: 66.0}, num_loops: {q1: 0.0, median: 0.0, q3: 1.0, outlier: 2.5}, num_parameters: {q1: 0.0, median: 0.0, q3: 6.0, outlier: 15.0}, num_tasks: {q1: 1.0, median: 2.0, q3: 4.0, outlier: 8.5}, num_tokens: {q1: 17.0, median: 46.0, q3: 116.0, outlier: 264.5}, num_unique_names: {q1: 1.0, median: 2.0, q3: 5.0, outlier: 11.0}, num_vars: {q1: 0.0, median: 0.0, q3: 1.0, outlier: 2.5}, text_entropy: {q1: 3.75, median: 4.78, q3: 5.5, outlier: 8.125}}
 const cp = require('child_process')
 
 export function activate(context: vscode.ExtensionContext) {
 
 	let disposable = vscode.commands.registerCommand('ansiblemetrics.run', (uri: vscode.Uri) => {
-
+				
 		const editor = vscode.window.activeTextEditor
 
 		if(!editor || editor.document.languageId !== 'yaml')
@@ -37,7 +38,15 @@ export function activate(context: vscode.ExtensionContext) {
 				// And set its HTML content
 				let json_data = JSON.parse(stdout)
 				json_data['filepath'] = fileName
-				panel.webview.html = getWebviewContent(json_data)
+
+				// Get path to resource on disk
+				const onDiskPath = vscode.Uri.file(
+					path.join(context.extensionPath, 'media', 'metrics-values.png')
+				);
+			
+				// And get the special URI to use with the webview
+				const metricsValueImgSrc = panel.webview.asWebviewUri(onDiskPath);
+				panel.webview.html = getWebviewContent(json_data, metricsValueImgSrc)
 			}
 		});
 	});
@@ -46,18 +55,32 @@ export function activate(context: vscode.ExtensionContext) {
 
 }
 
-function getWebviewContent(data: JSON) {
+function getWebviewContent(data: JSON, metricsValueImgSrc:any) {
 
 	let tbody:string = ''
 
 	for (let [key, value] of Object.entries(data)) {
-		let new_key = key.toLowerCase()
+		let formatted_name = key.toLowerCase()
 			.split('_')
 			.map((s) => s.charAt(0).toUpperCase() + s.substring(1))
 			.join(' ');
 		
-		tbody += generateHtmlTableRow(new_key, value)
+		let color_class = 'white'
+
+		if(key in thresholds){
+			if(value <= thresholds[key]['median']) color_class = 'white'
+			else if(value <= thresholds[key]['q3']) color_class = 'yellow'
+			else if(value <= thresholds[key]['outlier']) color_class = 'orange'
+			else color_class = 'red'
+			
+			if(value != 0)
+				tbody += `<tr><td>${formatted_name}</td><td class="${color_class}">${value}</td></tr>`
+		}
 	}
+	
+	console.log(metricsValueImgSrc)
+	console.log(metricsValueImgSrc.path)
+
 
 	return `
 	<!doctype html>
@@ -71,8 +94,21 @@ function getWebviewContent(data: JSON) {
 		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
 		<link rel="stylesheet" href="https://unpkg.com/bootstrap-table@1.16.0/dist/bootstrap-table.min.css">
+	
+		<style> 
+		.white {background: white;} 
+		.green {background: green;} 
+		.yellow {background: yellow;} 
+		.orange {background: orange;} 
+		.red {background: red;} 
+		</style>
 	</head>
 	<body>
+
+		<p align="center">
+			<img src="https://github.com/radon-h2020/radon-ansible-metrics-plugin/raw/master/media/metrics-value.png" width="200" />
+		</p>
+
 		<table data-toggle="table">
 		<thead>
 			<tr>
@@ -109,12 +145,6 @@ function getWebviewContent(data: JSON) {
 		<script src="https://unpkg.com/bootstrap-table@1.16.0/dist/bootstrap-table.min.js"></script>
 	</body>
 	</html>`
-}
-
-
-function generateHtmlTableRow(name:string, value:string){
-	// generate a HTML table row as follows: <tr><td>name</td><td>value</td></tr>
-	return `<tr><td>${name}</td><td>${value}</td></tr>`
 }
 
 
