@@ -106,7 +106,7 @@ function getWebviewContent(data: JSON, metricsValueImgSrc:any) {
 	<body>
 
 		<p align="center">
-			<img src="https://github.com/radon-h2020/radon-ansible-metrics-plugin/raw/master/media/metrics-value.png" width="200" />
+			<img src="https://github.com/radon-h2020/radon-ansible-metrics-plugin/raw/master/media/metric-values.png" width="300" />
 		</p>
 
 		<table data-toggle="table">
