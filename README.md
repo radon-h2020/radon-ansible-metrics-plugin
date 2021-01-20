@@ -23,6 +23,11 @@ The extension works for Ansible playbooks and tasks files.
 
 ![Alt Text](./media/AnsibleMetrics.gif)
 
+
+## See insights from the metrics
+![Alt Text](./media/example.png)
+
+
 ## Requirements
 
 The extension requires the python module ```ansiblemetrics>=0.3.10```.

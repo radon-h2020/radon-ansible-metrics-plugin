@@ -3,7 +3,7 @@
 	"displayName": "AnsibleMetrics",
 	"description": "An extension of AnsibleMetrics to quantify the characteristics of an Ansible blueprints.",
     "icon": "media/logo128x128.png",
-	"version": "0.0.5",
+	"version": "0.0.6",
 	"publisher": "radon-h2020",
 	"url": "https://dev.azure.com/radon-h2020/_git/radon-ansible-metrics",
 	"engines": {
